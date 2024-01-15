@@ -15,12 +15,12 @@ namespace blanchard_web_api.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetTrack")]
+        [HttpGet("")]
         public async Task<IActionResult> GetAll()
         {
             return Ok(await trackRepository.GetAllAsync());
         }
-        [HttpGet("GetTrackById/{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             return Ok(await trackRepository.GetByIdAsync(id));
@@ -36,7 +36,7 @@ namespace blanchard_web_api.Controllers
             Track track = new() {Title = title, ArtistName = artist, DurationInSecond = duration };
             return Ok(await trackRepository.Post(track));
         }
-        [HttpPut("Put/{id}/Title/{title}/Artist/{artist}/Duration/{duration}")]
+        [HttpPut("{id}/Title/{title}/Artist/{artist}/Duration/{duration}")]
         public async Task<IActionResult> Put(int id, string title, string artist, int duration) {
             Track track = await trackRepository.GetByIdAsync(id);
             track.Title = title;
@@ -45,7 +45,7 @@ namespace blanchard_web_api.Controllers
             return Ok(await trackRepository.Put(track));
         }
 
-        [HttpDelete("Delete/{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id) {
             await trackRepository.DeleteAsync(id);
             return Ok("Deletion successful");
