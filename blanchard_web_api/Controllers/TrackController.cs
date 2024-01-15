@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace blanchard_web_api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class TrackController : ControllerBase
     {
         ITrackRepository trackRepository;
