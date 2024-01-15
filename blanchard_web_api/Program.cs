@@ -1,4 +1,14 @@
+using blanchard_web_api;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<blanchard_web_api.Context>(o =>
+{
+    o.UseSqlServer(builder.Configuration.GetConnectionString("api_gui"));
+});
+
+builder.Services.AddScoped<ITrackRepository, TrackRepository>();
 
 // Add services to the container.
 
