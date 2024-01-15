@@ -25,5 +25,10 @@ namespace blanchard_web_api.Controllers
         {
             return Ok(await trackRepository.GetByIdAsync(id));
         }
+        [HttpGet("Search/{therme}")]
+        public async Task<IActionResult> Search(string therme)
+        { 
+            return Ok(await trackRepository.SearchAsync(therme));
+        }
     }
 }

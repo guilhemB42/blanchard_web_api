@@ -43,9 +43,9 @@ namespace blanchard_web_api
             return track;
         }
 
-        public Task<List<Track>> SearchAsync(string searchTerm)
+        public async Task<List<Track>> SearchAsync(string searchTerm)
         {
-            throw new NotImplementedException();
+            return await trackContext.Tracks.Where(t => t.Title.Contains(searchTerm)).ToListAsync();
         }
     }
 }
