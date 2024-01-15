@@ -44,5 +44,11 @@ namespace blanchard_web_api.Controllers
             track.DurationInSecond = duration;
             return Ok(await trackRepository.Put(track));
         }
+
+        [HttpDelete("Delete/{id}")]
+        public async Task<IActionResult> Delete(int id) {
+            await trackRepository.DeleteAsync(id);
+            return Ok("Deletion successful");
+        }
     }
 }
