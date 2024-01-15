@@ -26,6 +26,30 @@ namespace blanchard_web_api
             return await trackContext.Tracks.FirstOrDefaultAsync(t => t.Id == id);
         }
 
+        public async Task<Track> PatchDuration(Track track)
+        {
+            Track trackToEdit = trackContext.Tracks.Find(track.Id);
+            trackToEdit.DurationInSecond = track.DurationInSecond;
+            await trackContext.SaveChangesAsync();
+            return track;
+        }
+
+        public async Task<Track> PatchTitle(Track track)
+        {
+            Track trackToEdit = trackContext.Tracks.Find(track.Id);
+            trackToEdit.Title = track.Title;
+            await trackContext.SaveChangesAsync();
+            return track;
+        }
+
+        public async Task<Track> PatchArtist(Track track)
+        {
+            Track trackToEdit = trackContext.Tracks.Find(track.Id);
+            trackToEdit.ArtistName = track.ArtistName;
+            await trackContext.SaveChangesAsync();
+            return track;
+        }
+
         public async Task<Track> Post(Track track)
         {
             trackContext.Tracks.Add(track);

@@ -37,7 +37,8 @@ namespace blanchard_web_api.Controllers
             return Ok(await trackRepository.Post(track));
         }
         [HttpPut("{id}/Title/{title}/Artist/{artist}/Duration/{duration}")]
-        public async Task<IActionResult> Put(int id, string title, string artist, int duration) {
+        public async Task<IActionResult> Put(int id, string title, string artist, int duration)
+        {
             Track track = await trackRepository.GetByIdAsync(id);
             track.Title = title;
             track.ArtistName = artist;
@@ -50,5 +51,28 @@ namespace blanchard_web_api.Controllers
             await trackRepository.DeleteAsync(id);
             return Ok("Deletion successful");
         }
+        [HttpPatch("{id}/Title/{title}")]
+        public async Task<IActionResult> PatchTitle(int id, string title) 
+        {
+            Track track = await trackRepository.GetByIdAsync(id);
+            track.Title = title;
+            return Ok(await trackRepository.PatchTitle(track));
+        }
+
+        [HttpPatch("{id}/Artist/{artist}")]
+        public async Task<IActionResult> PatchArtist(int id, string artist)
+        {
+            Track track = await trackRepository.GetByIdAsync(id);
+            track.ArtistName = artist;
+            return Ok(await trackRepository.PatchArtist(track));
+        }
+        [HttpPatch("{id}/Duration/{duration}")]
+        public async Task<IActionResult> PatchDuration(int id, int duration)
+        {
+            Track track = await trackRepository.GetByIdAsync(id);
+            track.DurationInSecond = duration;
+            return Ok(await trackRepository.PatchDuration(track));
+        }
     }
+
 }
