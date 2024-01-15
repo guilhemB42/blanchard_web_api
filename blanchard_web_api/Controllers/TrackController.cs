@@ -7,7 +7,7 @@ namespace blanchard_web_api.Controllers
     public class TrackController : ControllerBase
     {
         ITrackRepository trackRepository;
-          private readonly ILogger<TrackController> _logger;
+        private readonly ILogger<TrackController> _logger;
 
         public TrackController(ILogger<TrackController> logger, ITrackRepository ItrackRepository)
         {
@@ -16,9 +16,14 @@ namespace blanchard_web_api.Controllers
         }
 
         [HttpGet(Name = "GetTrack")]
-        public IActionResult Get()
+        public async Task<IActionResult> GetAll()
         {
-            return Ok(trackRepository.GetAllAsync());           
+            return Ok(await trackRepository.GetAllAsync());
+        }
+        [HttpGet("GetTrackById/{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            return Ok(await trackRepository.GetByIdAsync(id));
         }
     }
 }
