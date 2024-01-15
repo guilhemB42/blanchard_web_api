@@ -27,8 +27,14 @@ namespace blanchard_web_api.Controllers
         }
         [HttpGet("Search/{therme}")]
         public async Task<IActionResult> Search(string therme)
-        { 
+        {
             return Ok(await trackRepository.SearchAsync(therme));
+        }
+        [HttpPost("Title/{title}/Artist/{artist}/Duration/{duration}")]
+        public async Task<IActionResult> Post(string title, string artist, int duration)
+        {
+            Track track = new() {Title = title, ArtistName = artist, DurationInSecond = duration };
+            return Ok(await trackRepository.Post(track));
         }
     }
 }
