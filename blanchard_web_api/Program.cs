@@ -10,7 +10,11 @@ builder.Services.AddDbContext<blanchard_web_api.Context>(o =>
 
 builder.Services.AddScoped<ITrackRepository, TrackRepository>();
 builder.Services.AddScoped<ITrackService, TrackService>();
-
+builder.Services.AddAutoMapper(o =>
+{
+    o.CreateMap<Track, DTO_Track>();
+    o.CreateMap<DTO_Track, Track>();
+});
 // Add services to the container.
 
 builder.Services.AddControllers();

@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace blanchard_web_api.Controllers
@@ -7,11 +8,13 @@ namespace blanchard_web_api.Controllers
     public class TrackController : ControllerBase
     {
         ITrackService trackService;
+        IMapper mapper;
         private readonly ILogger<TrackController> _logger;
 
-        public TrackController(ILogger<TrackController> logger, ITrackService ItrackRepository)
+        public TrackController(ILogger<TrackController> logger, ITrackService ItrackRepository, IMapper Imapper)
         {
             trackService = ItrackRepository;
+            mapper = Imapper;
             _logger = logger;
         }
 
@@ -41,7 +44,7 @@ namespace blanchard_web_api.Controllers
         [HttpPost()]
         public async Task<IActionResult> Post(DTO_Track dto_track)
         {
-            Track track = new Track() {Title=dto_track.Title, ArtistName=dto_track.ArtistName, DurationInSecond=dto_track.DurationInSecond };
+            Track track = mapper.Map<Track>(dto_track);
             return Ok(await trackService.Post(track));
         }
         [HttpPut]
