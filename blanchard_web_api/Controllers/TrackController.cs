@@ -23,7 +23,15 @@ namespace blanchard_web_api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            return Ok(await trackRepository.GetByIdAsync(id));
+            Track track = await trackRepository.GetByIdAsync(id);
+            if (track == null)
+            {
+                return Problem("Id non présent en base", statusCode:418);
+            }
+            else
+            {
+                return Ok(track);
+            }
         }
         [HttpGet("Search/{therme}")]
         public async Task<IActionResult> Search(string therme)
