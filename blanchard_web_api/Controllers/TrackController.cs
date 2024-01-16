@@ -26,7 +26,7 @@ namespace blanchard_web_api.Controllers
             Track track = await trackRepository.GetByIdAsync(id);
             if (track == null)
             {
-                return Problem("Id non présent en base", statusCode:204);
+                return Problem("Id non présent en base");
             }
             else
             {
@@ -38,30 +38,26 @@ namespace blanchard_web_api.Controllers
         {
             return Ok(await trackRepository.SearchAsync(therme));
         }
-        [HttpPost("Title/{title}/Artist/{artist}/Duration/{duration}")]
-        public async Task<IActionResult> Post(string title, string artist, int duration)
-        {
-            Track track = new() {Title = title, ArtistName = artist, DurationInSecond = duration };
-            return Ok(await trackRepository.Post(track));
-        }
         [HttpPost()]
         public async Task<IActionResult> Post(Track track)
         {
             return Ok(await trackRepository.Post(track));
         }
-        [HttpPut("{id}/Title/{title}/Artist/{artist}/Duration/{duration}")]
-        public async Task<IActionResult> Put(int id, string title, string artist, int duration)
+        [HttpPut]
+        public async Task<IActionResult> Put(Track track)
         {
-            Track track = await trackRepository.GetByIdAsync(id);
-            track.Title = title;
-            track.ArtistName = artist;
-            track.DurationInSecond = duration;
             return Ok(await trackRepository.Put(track));
         }
-
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id) {
-            await trackRepository.DeleteAsync(id);
+            try
+            {
+                await trackRepository.DeleteAsync(id);
+            }
+            catch
+            {
+                return Problem("id inconnu en base");
+            }
             return Ok("Deletion successful");
         }
         [HttpPatch("{id}/Title/{title}")]
