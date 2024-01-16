@@ -72,23 +72,40 @@ namespace blanchard_web_api.Controllers
         public async Task<IActionResult> PatchTitle(int id, string title) 
         {
             Track track = await trackService.GetByIdAsync(id);
-            track.Title = title;
-            return Ok(await trackService.PatchTitle(track));
+            if (track == null)
+            {
+                return Problem("id inconnu en bdd, patch impossible");
+            }
+            else
+            {
+                track.Title = title;
+                return Ok(await trackService.PatchTitle(track));
+            }
         }
 
         [HttpPatch("{id}/Artist/{artist}")]
         public async Task<IActionResult> PatchArtist(int id, string artist)
         {
             Track track = await trackService.GetByIdAsync(id);
-            track.ArtistName = artist;
-            return Ok(await trackService.PatchArtist(track));
+            if(track==null){
+                return Problem("id inconnu en bdd, patch impossible");
+            }
+            else{
+                track.ArtistName = artist;
+                return Ok(await trackService.PatchArtist(track));
+            }
         }
         [HttpPatch("{id}/Duration/{duration}")]
         public async Task<IActionResult> PatchDuration(int id, int duration)
         {
             Track track = await trackService.GetByIdAsync(id);
-            track.DurationInSecond = duration;
-            return Ok(await trackService.PatchDuration(track));
+            if(track==null){
+                return Problem("id inconnu en bdd, patch impossible");
+            }
+            else{
+                track.DurationInSecond = duration;
+                return Ok(await trackService.PatchDuration(track));
+            }
         }
     }
 
