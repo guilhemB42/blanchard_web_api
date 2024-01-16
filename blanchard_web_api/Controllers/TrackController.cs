@@ -26,7 +26,7 @@ namespace blanchard_web_api.Controllers
             Track track = await trackRepository.GetByIdAsync(id);
             if (track == null)
             {
-                return Problem("Id non présent en base", statusCode:418);
+                return Problem("Id non présent en base", statusCode:204);
             }
             else
             {
