@@ -46,7 +46,15 @@ namespace blanchard_web_api.Controllers
         [HttpPut]
         public async Task<IActionResult> Put(Track track)
         {
-            return Ok(await trackService.Put(track));
+            Track trackDBB = await trackService.GetByIdAsync(track.Id);
+            if (trackDBB == null) {
+                return Problem("id inconnu, MAJ impossible");
+            }
+            else
+            {
+                return Ok(await trackService.Put(track));
+
+            }
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id) {
