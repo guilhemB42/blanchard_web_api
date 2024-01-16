@@ -39,8 +39,9 @@ namespace blanchard_web_api.Controllers
             return Ok(await trackService.SearchAsync(therme));
         }
         [HttpPost()]
-        public async Task<IActionResult> Post(Track track)
+        public async Task<IActionResult> Post(DTO_Track dto_track)
         {
+            Track track = new Track() {Title=dto_track.Title, ArtistName=dto_track.ArtistName, DurationInSecond=dto_track.DurationInSecond };
             return Ok(await trackService.Post(track));
         }
         [HttpPut]
