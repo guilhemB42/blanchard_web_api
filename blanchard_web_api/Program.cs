@@ -9,6 +9,7 @@ builder.Services.AddDbContext<blanchard_web_api.Context>(o =>
 });
 
 builder.Services.AddScoped<ITrackRepository, TrackRepository>();
+builder.Services.AddScoped<ITrackService, TrackService>();
 
 // Add services to the container.
 

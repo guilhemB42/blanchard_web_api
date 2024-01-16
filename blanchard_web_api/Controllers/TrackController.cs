@@ -6,24 +6,24 @@ namespace blanchard_web_api.Controllers
     [Route("api/[controller]")]
     public class TrackController : ControllerBase
     {
-        ITrackRepository trackRepository;
+        ITrackService trackService;
         private readonly ILogger<TrackController> _logger;
 
-        public TrackController(ILogger<TrackController> logger, ITrackRepository ItrackRepository)
+        public TrackController(ILogger<TrackController> logger, ITrackService ItrackRepository)
         {
-            trackRepository = ItrackRepository;
+            trackService = ItrackRepository;
             _logger = logger;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await trackRepository.GetAllAsync());
+            return Ok(await trackService.GetAllAsync());
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            Track track = await trackRepository.GetByIdAsync(id);
+            Track track = await trackService.GetByIdAsync(id);
             if (track == null)
             {
                 return Problem("Id non présent en base");
@@ -36,23 +36,23 @@ namespace blanchard_web_api.Controllers
         [HttpGet("Search/{therme}")]
         public async Task<IActionResult> Search(string therme)
         {
-            return Ok(await trackRepository.SearchAsync(therme));
+            return Ok(await trackService.SearchAsync(therme));
         }
         [HttpPost()]
         public async Task<IActionResult> Post(Track track)
         {
-            return Ok(await trackRepository.Post(track));
+            return Ok(await trackService.Post(track));
         }
         [HttpPut]
         public async Task<IActionResult> Put(Track track)
         {
-            return Ok(await trackRepository.Put(track));
+            return Ok(await trackService.Put(track));
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id) {
             try
             {
-                await trackRepository.DeleteAsync(id);
+                await trackService.DeleteAsync(id);
             }
             catch
             {
@@ -63,24 +63,24 @@ namespace blanchard_web_api.Controllers
         [HttpPatch("{id}/Title/{title}")]
         public async Task<IActionResult> PatchTitle(int id, string title) 
         {
-            Track track = await trackRepository.GetByIdAsync(id);
+            Track track = await trackService.GetByIdAsync(id);
             track.Title = title;
-            return Ok(await trackRepository.PatchTitle(track));
+            return Ok(await trackService.PatchTitle(track));
         }
 
         [HttpPatch("{id}/Artist/{artist}")]
         public async Task<IActionResult> PatchArtist(int id, string artist)
         {
-            Track track = await trackRepository.GetByIdAsync(id);
+            Track track = await trackService.GetByIdAsync(id);
             track.ArtistName = artist;
-            return Ok(await trackRepository.PatchArtist(track));
+            return Ok(await trackService.PatchArtist(track));
         }
         [HttpPatch("{id}/Duration/{duration}")]
         public async Task<IActionResult> PatchDuration(int id, int duration)
         {
-            Track track = await trackRepository.GetByIdAsync(id);
+            Track track = await trackService.GetByIdAsync(id);
             track.DurationInSecond = duration;
-            return Ok(await trackRepository.PatchDuration(track));
+            return Ok(await trackService.PatchDuration(track));
         }
     }
 
