@@ -15,7 +15,7 @@ namespace blanchard_web_api.Controllers
             _logger = logger;
         }
 
-        [HttpGet("")]
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             return Ok(await trackRepository.GetAllAsync());
