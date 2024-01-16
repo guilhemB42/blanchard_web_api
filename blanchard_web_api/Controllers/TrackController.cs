@@ -44,6 +44,11 @@ namespace blanchard_web_api.Controllers
             Track track = new() {Title = title, ArtistName = artist, DurationInSecond = duration };
             return Ok(await trackRepository.Post(track));
         }
+        [HttpPost()]
+        public async Task<IActionResult> Post(Track track)
+        {
+            return Ok(await trackRepository.Post(track));
+        }
         [HttpPut("{id}/Title/{title}/Artist/{artist}/Duration/{duration}")]
         public async Task<IActionResult> Put(int id, string title, string artist, int duration)
         {
