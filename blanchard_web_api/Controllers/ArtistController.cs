@@ -22,7 +22,7 @@ namespace blanchard_web_api.Controllers
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(200)]
-        public async Task<IActionResult> GetAll()
+        public async Task<ActionResult<List<Artist>>> GetAll()
         {
             return Ok(await artistRepository.GetAllAsync());
         }
