@@ -1,4 +1,6 @@
-﻿namespace blanchard_web_api
+﻿using blanchard_web_api.Entities;
+
+namespace blanchard_web_api
 {
     public interface ITrackRepository
     {

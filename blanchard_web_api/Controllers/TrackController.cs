@@ -1,4 +1,6 @@
 using AutoMapper;
+using blanchard_web_api.DTO;
+using blanchard_web_api.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace blanchard_web_api.Controllers

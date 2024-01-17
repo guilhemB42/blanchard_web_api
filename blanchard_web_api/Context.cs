@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using blanchard_web_api.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace blanchard_web_api
 {

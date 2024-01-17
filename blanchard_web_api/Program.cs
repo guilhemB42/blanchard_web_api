@@ -1,4 +1,6 @@
 using blanchard_web_api;
+using blanchard_web_api.DTO;
+using blanchard_web_api.Entities;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

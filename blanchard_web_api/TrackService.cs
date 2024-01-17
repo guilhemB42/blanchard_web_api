@@ -1,4 +1,6 @@
 ﻿
+using blanchard_web_api.Entities;
+
 namespace blanchard_web_api
 {
     public class TrackService : ITrackService
