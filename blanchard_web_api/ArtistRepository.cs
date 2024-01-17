@@ -1,4 +1,5 @@
 ﻿using blanchard_web_api.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace blanchard_web_api
 {
@@ -10,34 +11,44 @@ namespace blanchard_web_api
         {
             artistContext = context;
         }
-        public Task DeleteAsync(int id)
+        public async Task DeleteByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            Artist artistToDelete = await artistContext.Artists.FirstOrDefaultAsync(a => a.Id == id);
+            artistContext.Artists.Remove(artistToDelete);
+            await artistContext.SaveChangesAsync();
         }
 
-        public Task<List<Artist>> GetAllAsync()
+        public async Task<List<Artist>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await artistContext.Artists.ToListAsync();
         }
 
-        public Task<Artist> GetByIdAsync(int id)
+        public async Task<Artist> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await artistContext.Artists.Include(a => a.Tracks).FirstOrDefaultAsync(a => a.Id == id);
         }
 
-        public Task<Artist> Post(Artist artist)
+        public async Task<Artist> Post(Artist artist)
         {
-            throw new NotImplementedException();
+            artistContext.Artists.Add(artist);
+            await artistContext.SaveChangesAsync();
+            return artist;
         }
 
-        public Task<Artist> Put(Artist artist)
+        public async Task<Artist> Put(Artist artist)
         {
-            throw new NotImplementedException();
+            Artist artistToEdit = artistContext.Artists.Find(artist.Id);
+            artistToEdit.Name = artist.Name;
+            await artistContext.SaveChangesAsync();
+            return artist;
         }
 
-        public Task<List<Artist>> SearchAsync(string searchTerm)
+        public async Task<List<Artist>> SearchAsync(string searchTerm)
         {
-            throw new NotImplementedException();
+            return await artistContext.Artists.Where(
+              a=>
+              a.Name.Contains(searchTerm)
+              ).ToListAsync();
         }
     }
 }

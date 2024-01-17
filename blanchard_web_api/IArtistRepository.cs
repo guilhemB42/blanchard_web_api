@@ -9,6 +9,6 @@ namespace blanchard_web_api
         Task<List<Artist>> SearchAsync(string searchTerm);
         Task<Artist> Post(Artist artist);
         Task<Artist> Put(Artist artist);
-        Task DeleteAsync(int id);
+        Task DeleteByIdAsync(int id);
     }
 }

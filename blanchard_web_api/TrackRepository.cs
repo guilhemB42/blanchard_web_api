@@ -24,7 +24,7 @@ namespace blanchard_web_api
 
         public async Task<Track> GetByIdAsync(int id)
         {
-            return await trackContext.Tracks.FirstOrDefaultAsync(t => t.Id == id);
+            return await trackContext.Tracks.Include(t=>t.Artist).FirstOrDefaultAsync(t => t.Id == id);
         }
 
         public async Task<Track> PatchDuration(Track track)
