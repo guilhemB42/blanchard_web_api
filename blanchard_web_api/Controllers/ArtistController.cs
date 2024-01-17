@@ -16,7 +16,12 @@ namespace blanchard_web_api.Controllers
             artistRepository = IartistRepository;
         }
         // GET: api/<ArtistController>
+        /// <summary>
+        /// Get all
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
+        [ProducesResponseType(200)]
         public async Task<IActionResult> GetAll()
         {
             return Ok(await artistRepository.GetAllAsync());
