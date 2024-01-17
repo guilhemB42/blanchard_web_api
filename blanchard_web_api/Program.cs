@@ -12,6 +12,7 @@ builder.Services.AddDbContext<Context>(o =>
 
 builder.Services.AddScoped<ITrackRepository, TrackRepository>();
 builder.Services.AddScoped<ITrackService, TrackService>();
+builder.Services.AddScoped<IArtistRepository, ArtistRepository>();
 builder.Services.AddAutoMapper(o =>
 {
     o.CreateMap<Track, TrackDTO>();

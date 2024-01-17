@@ -11,7 +11,7 @@ using blanchard_web_api;
 namespace blanchard_web_api.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20240115160618_init")]
+    [Migration("20240117094258_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -24,13 +24,59 @@ namespace blanchard_web_api.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("blanchard_web_api.Track", b =>
+            modelBuilder.Entity("blanchard_web_api.Entities.Artist", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Artists");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "David Bowie"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Manau"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Jean-Jacques Goldman"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Indochine"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Florian Montagne"
+                        });
+                });
+
+            modelBuilder.Entity("blanchard_web_api.Entities.Track", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ArtistId")
+                        .HasColumnType("int");
 
                     b.Property<string>("ArtistName")
                         .IsRequired()
@@ -45,12 +91,15 @@ namespace blanchard_web_api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ArtistId");
+
                     b.ToTable("Tracks");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
+                            ArtistId = 1,
                             ArtistName = "David Bowie",
                             DurationInSecond = 202,
                             Title = "Life On Mars?"
@@ -58,6 +107,7 @@ namespace blanchard_web_api.Migrations
                         new
                         {
                             Id = 2,
+                            ArtistId = 2,
                             ArtistName = "Manau",
                             DurationInSecond = 285,
                             Title = "La tribu de Dana"
@@ -65,6 +115,7 @@ namespace blanchard_web_api.Migrations
                         new
                         {
                             Id = 3,
+                            ArtistId = 3,
                             ArtistName = "Jean-Jacques Goldman",
                             DurationInSecond = 237,
                             Title = "Au bout de mes rêves"
@@ -72,6 +123,7 @@ namespace blanchard_web_api.Migrations
                         new
                         {
                             Id = 4,
+                            ArtistId = 4,
                             ArtistName = "Indochine",
                             DurationInSecond = 326,
                             Title = "La vie est belle"
@@ -79,10 +131,35 @@ namespace blanchard_web_api.Migrations
                         new
                         {
                             Id = 5,
+                            ArtistId = 5,
                             ArtistName = "Florian Montagne",
                             DurationInSecond = 122,
                             Title = "Moi, je viens de Narbonne"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ArtistId = 4,
+                            ArtistName = "Indochine",
+                            DurationInSecond = 300,
+                            Title = "J'ai demandé à la lune"
                         });
+                });
+
+            modelBuilder.Entity("blanchard_web_api.Entities.Track", b =>
+                {
+                    b.HasOne("blanchard_web_api.Entities.Artist", "Artist")
+                        .WithMany("Tracks")
+                        .HasForeignKey("ArtistId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Artist");
+                });
+
+            modelBuilder.Entity("blanchard_web_api.Entities.Artist", b =>
+                {
+                    b.Navigation("Tracks");
                 });
 #pragma warning restore 612, 618
         }
