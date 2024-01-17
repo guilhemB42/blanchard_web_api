@@ -2,6 +2,7 @@ using blanchard_web_api;
 using blanchard_web_api.DTO;
 using blanchard_web_api.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,9 @@ builder.Services.AddAutoMapper(o =>
     o.CreateMap<Track, TrackDTO>();
     o.CreateMap<TrackDTO, Track>();
 });
+builder.Services.AddControllers().AddJsonOptions(x =>
+x.JsonSerializerOptions.ReferenceHandler =
+ReferenceHandler.IgnoreCycles);
 // Add services to the container.
 
 builder.Services.AddControllers();

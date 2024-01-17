@@ -19,7 +19,7 @@ namespace blanchard_web_api
 
         public async Task<List<Track>> GetAllAsync()
         {
-            return await trackContext.Tracks.ToListAsync();
+            return await trackContext.Tracks.Include(t => t.Artist).ToListAsync();
         }
 
         public async Task<Track> GetByIdAsync(int id)
