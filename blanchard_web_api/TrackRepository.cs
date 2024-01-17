@@ -69,7 +69,11 @@ namespace blanchard_web_api
 
         public async Task<List<Track>> SearchAsync(string searchTerm)
         {
-            return await trackContext.Tracks.Where(t => t.Title.Contains(searchTerm)).ToListAsync();
+            return await trackContext.Tracks.Where(
+                t =>
+                t.Title.Contains(searchTerm)
+                || t.ArtistName.Contains(searchTerm)
+                ).ToListAsync();
         }
     }
 }

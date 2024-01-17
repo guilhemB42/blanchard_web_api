@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace blanchard_web_api.Controllers
 {
     [ApiController]
+    [Tags("Music database API")]
     [Route("api/[controller]")]
     public class TrackController : ControllerBase
     {
@@ -42,7 +43,7 @@ namespace blanchard_web_api.Controllers
             return Ok(await trackService.SearchAsync(therme));
         }
         [HttpPost()]
-        public async Task<IActionResult> Post(DTO_Track dto_track)
+        public async Task<IActionResult> Post(TrackDTO dto_track)
         {
             Track track = mapper.Map<Track>(dto_track);
             return Ok(await trackService.Post(track));

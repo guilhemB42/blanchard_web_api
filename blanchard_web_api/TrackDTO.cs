@@ -1,6 +1,7 @@
 ﻿namespace blanchard_web_api
 {
-    public class DTO_Track
+    public class TrackDTO
+
     {
         public string Title { get; set; }
         public string ArtistName { get; set; }
