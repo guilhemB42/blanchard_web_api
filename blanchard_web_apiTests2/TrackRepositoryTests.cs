@@ -15,26 +15,29 @@ namespace blanchard_web_api.Tests
     public class TrackRepositoryTests
     {
         [TestMethod()]
-        public void GetAllAsyncTest()
+        public async Task GetAllAsyncTest()
         {
             // Arrange
-            var builder = new DbContextOptionsBuilder<Context>().UseInMemoryDatabase("music");
+            var builder = new DbContextOptionsBuilder<Context>()
+                .UseInMemoryDatabase("music");
 
 
             var context = new Context(builder.Options);
             context.Database.EnsureDeleted();
-/*          context.Tracks.Add(new Track { Id = 343, ArtistName="aaa", Title="bbb",DurationInSecond=15 });
-            context.Tracks.Add(new Track { Id = 25, ArtistName="bbb", Title="ccc",DurationInSecond=65 });
-*/
+            //context.Database.EnsureCreated();
 
-            MockTrackRepository petRepository = new MockTrackRepository(context);
+            context.Artists.Add(new Artist { Id = 105, Name = "rrr" });
+           
+            context.SaveChanges();
+
+
+            ArtistRepository artistRepo = new ArtistRepository(context);
 
             // Act
-            var tracks = petRepository.GetAll();
-            Track track = tracks.ElementAt(0);
+            var artist = await artistRepo.GetAllAsync();
 
             // Assert
-            Assert.AreEqual(track.Id, 17);
+            Assert.AreEqual(105, artist.First().Id);
         }
     }
 }

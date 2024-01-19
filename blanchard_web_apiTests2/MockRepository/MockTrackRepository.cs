@@ -24,13 +24,9 @@ namespace blanchard_web_apiTests2.MockRepository
 
         public async Task<List<Track>> GetAllAsync()
         {
-            throw new NotImplementedException();
-        }
-
-        public List<Track> GetAll()
-        {
             return new List<Track>() { new Track { Id = 17 } };
         }
+
 
         public Task<Track> GetByIdAsync(int id)
         {
