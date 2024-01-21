@@ -49,7 +49,7 @@ namespace blanchard_web_api.Controllers
         }
 
         // PUT api/<ArtistController>/5
-        [HttpPut("{id}")]
+        [HttpPut]
         public async Task<IActionResult> Put(Artist artist)
         {
             Artist artistDbb = await artistRepository.GetByIdAsync(artist.Id);
